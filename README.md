@@ -1,29 +1,21 @@
 # Financial-Fraud-Transaction-Detection-Pipeline
 
+### End to End Azure Data Engineering Project
 
-
-
-
-Fraud Transaction Pipeline
-End to End Azure Data Engineering Project
-
-
-
-Repository	Tech Stack
+#Repository	                                             Tech Stack
 Fraud Transaction Analysis Pipeline	Azure Data Factory | Azure Synapse Analytics | Pyspark
-
 ADLS Gen2 | Azure SQL | Power BI | Machine Learning (Logistic Regression and DecisionTree)
 
  
 
-Project Overview
+## Project Overview
 
 This project executes a full end to end Azure Data Engineering Pipeline for a Financial Transaction Fraud Dataset. Raw data is ingested from an HTTP source into the Bronze layer, cleaned and standardize before storing it to the silver layer with the help of Azure Synapse Analytics and Spark SQL and stored in Delta table format. Later, it has been aggregated into dimensions and fact tables i.e. in Delta format, which is further taken by Power BI for visualization purpose and similarly, for the prediction purpose driven by Machine Learning algorithmns namely Logistics Regression.
 
 The pipeline follows the Medallion Architecture (Bronze -> Silver -> Gold) and is orchestrated entirely by Azure Data Factory.
 
  
-Architecture Diagram:
+## Architecture Diagram:
  
 
 
