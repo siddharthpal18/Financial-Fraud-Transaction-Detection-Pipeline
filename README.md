@@ -17,6 +17,7 @@ The pipeline follows the Medallion Architecture (Bronze -> Silver -> Gold) and i
  
 ## Architecture Diagram:
  
+<img width="940" height="676" alt="image" src="https://github.com/user-attachments/assets/ca551ef2-313a-4189-94f2-d0a6b7253c1f" />
 
 
 Layer	Description
@@ -26,7 +27,7 @@ Gold	12 aggregated Delta tables partitioned for analytics — Major Transformati
 Azure SQL	Same 12 tables loaded via JDBC for direct Power BI Import / Synapse Notebook for Machine Learning
 Power BI	8 chart visuals 
 
-Setup Steps
+## Setup Steps
 1.	Create ADLS Gen2 storage account adlstoragesiddharth with containers: bronze, silver, gold
 2.	Create Azure SQL Database AzureSQLDB on server sqldbc37.database.windows.net
 3.	Create Synapse workspace and setup System assigned managed identity. And inside the Synapse Workspace  provide ROLE BASED ACCESS CONTROL rule to the user.
@@ -41,12 +42,12 @@ Setup Steps
 
 
  
-Step 1 — ADF Data Ingestion (HTTP -> Bronze)
+## Step 1 — ADF Data Ingestion (HTTP -> Bronze)
 
 Overview
 Azure Data Factory copies the raw Financial Transaction Fraud Detection Dataset CSV from a Kaggle HTTP endpoint into the Bronze container of ADLS Gen2. This is the first activity in the fraud_transaction_detection_Pipeline and acts as the entry point for all downstream processing.
 
-Configuration
+### Configuration
 Setting	FinancialDataCopy
 Activity type	Copy Activity
 Source type	Binary (HTTP)
@@ -64,8 +65,9 @@ Sink folder	Financial_fraud_dataset
 Input dataset	Financial_fraud_dataset.csv
 Output dataset	Financial_fraud_dataset.csv
 
-ADF Pipeline JSON 
- 
+## ADF Pipeline JSON 
+ <img width="940" height="467" alt="image" src="https://github.com/user-attachments/assets/19e4af0f-345e-4400-807a-2d4b28871f39" />
+
 Challenges & Resolutions
 Challenge	Resolution
 ZIP compression on HTTP source	Added ZipDeflateReadSettings to formatSettings so ADF auto-decompresses on download
