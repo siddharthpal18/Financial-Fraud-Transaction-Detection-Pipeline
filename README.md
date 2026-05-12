@@ -67,20 +67,22 @@ Output dataset	Financial_fraud_dataset.csv
 
 ## ADF Pipeline JSON 
  <img width="940" height="467" alt="image" src="https://github.com/user-attachments/assets/19e4af0f-345e-4400-807a-2d4b28871f39" />
+ <img width="940" height="498" alt="image" src="https://github.com/user-attachments/assets/1221922e-c36b-4e80-8c00-7c9a9fac618e" />
 
-Challenges & Resolutions
-Challenge	Resolution
+
+## Challenges & Resolutions
+Challenge						Resolution
 ZIP compression on HTTP source	Added ZipDeflateReadSettings to formatSettings so ADF auto-decompresses on download
 Special characters in CSV	Enabled quoteAllText on the sink and set quote/escape chars in the downstream Spark reader
 Pipeline dependency ordering	Set financecsvdata as the predecessor so Synapse notebooks only trigger after copy succeeds
 
 
-Step 2 — Minor Transformation (Bronze -> Silver)
+## Step 2 — Minor Transformation (Bronze -> Silver)
 
-Overview
+### Overview
 The Minor Transformation Synapse notebook reads raw CSV from Bronze, applies cleaning and type-casting, filters invalid records, and writes the result as Delta to the Silver layer. This is the second activity in the pipeline and runs only after the Copy Activity succeeds.
 
-Configuration
+### Configuration
 Setting	Value
 Notebook path	 /MinorTransformation
 Linked service	AzureSynapseAnalyticsLS
@@ -93,7 +95,7 @@ Sink path	abfss://silver@adlstoragesiddharth.dfs.core.windows.net/fraud_detectio
 
 Output format	Delta (overwrite mode)
 
-Transformations Applied
+### Transformations Applied
 Column	Operation
 transaction_type, merchant_category, transaction_location, customer_home_location, card_type	initcap + trim
 fraud_label	upper + trim
@@ -116,18 +118,20 @@ Need to track when data was processed for audit trail	Added load_date and load_t
 Duplicate transactions causing skewed aggregations	Checked for duplicates using COUNT - COUNT(DISTINCT) but no removal applied; duplicates remain in data
 
  
-Step 3 — Major Transformation (Silver -> Gold + Azure SQL)
-Overview
+# Step 3 — Major Transformation (Silver -> Gold + Azure SQL)
+### Overview
  The Major Transformation stage involves aggregating the cleaned data from the Silver layer into dimensions and fact tables. These tables are stored in Delta format in the Gold layer for visualization and machine learning purposes. 
-Key Details:
+### Key Details:
 Architecture: Medallion Architecture (Silver to Gold transition). 
 Output Tables: A total of 12 aggregated Delta tables are created and partitioned for analytics. 
 Dimensions
- 
+ <img width="940" height="588" alt="image" src="https://github.com/user-attachments/assets/6002d5ff-ca1e-41a2-8d5d-3e29d374faa0" />
+
 
  
 Facts
- 
+<img width="940" height="588" alt="image" src="https://github.com/user-attachments/assets/1baf9082-9bc2-4d4f-9780-4f590c409350" />
+
 Storage & Sink:
 Gold Layer: Tables are stored as Delta files in ADLS Gen2 for analytics. 
 Azure SQL Database: The same 12 tables are loaded via JDBC into AzureSQLDB on the server :sqldbc37.database.windows.net. 
