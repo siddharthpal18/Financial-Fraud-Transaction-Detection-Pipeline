@@ -1,0 +1,18 @@
+{
+	"name": "HealthBinary",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "HttpServerLS",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation",
+				"relativeUrl": "datasets/prasad22/healthcare-dataset"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
