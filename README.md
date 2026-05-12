@@ -105,7 +105,7 @@ transaction_date, transaction_time	to_date/to_timestamp
 load_date, load_timestamp	Auto-generated
 
  
-Challenges & Resolutions
+### Challenges & Resolutions
 Challenge	Resolution
 NULL values scattered across 24 columns	Applied dropna(how='any') to remove entire rows with any NULL. Removed 1,234 records keeping 96.4% quality data for ML model
 Column names with inconsistent formatting and spaces	Applied multi-step column rename: remove " (in Million)" suffix, replace spaces with underscores, replace hyphens with underscores, convert to lowercase
@@ -159,8 +159,9 @@ Technical Execution:
 •	Notebook: The Major_Transformation.ipynb notebook is deployed to Synapse to handle these aggregations. 
 •	Security: Credentials for the Azure SQL load are managed using Azure Key Vault, specifically storing the SQL password under the key azsqldb in DBSecrets
 
-Step 4 — Power BI Visualization
+### Step 4 — Power BI Visualization
  
+<img width="940" height="534" alt="image" src="https://github.com/user-attachments/assets/af75d80e-a615-4066-98c1-c531af17e5e0" />
 
 This step details the development of the Fraud Transactions Analysis dashboard, designed to monitor and identify anomalous financial activities. 
 Dashboard Overview: The dashboard provides a high-level summary of transaction health, focusing on the identification of fraudulent versus normal activity. 
@@ -181,7 +182,7 @@ Data Formatting & Polish: Numerical values are standardized in the Format pane t
 
 
  
-Step 5 — Machine Learning Prediction
+### Step 5 — Machine Learning Prediction
 This step leverages high-quality data from the Gold layer to build and evaluate predictive models for identifying fraudulent transactions.
 
 Algorithm Selection: The project implements supervised learning using Logistic Regression and Decision Tree algorithms to classify transactions as "Fraud" or "Normal". 
@@ -196,6 +197,8 @@ Data Quality Impact: The models benefit from a 96.4% data quality rate establish
 Execution Environment: All machine learning tasks—including feature preparation, scaling, and algorithm training—are performed within Azure Synapse Analytics using Spark-based libraries. 
 
 Business Logic Integration: The predictive model aims to automate the detection of the 4.78% of transactions identified as fraudulent in the historical analysis, focusing on patterns like unusual transaction times or high failed transaction counts.
+<img width="940" height="576" alt="image" src="https://github.com/user-attachments/assets/2d8aadaf-7736-4837-b16d-d37068a5a660" />
+
 
  
 
